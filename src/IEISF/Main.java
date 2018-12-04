@@ -1,28 +1,20 @@
-package IEISF;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package IEISF;
 
-
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.File;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.WritableImage;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Point;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -49,282 +41,106 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu3 = new javax.swing.JMenu();
-        img2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        imgResult = new javax.swing.JLabel();
+        browseImage = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        spatialFilter = new javax.swing.JButton();
         txtPath = new javax.swing.JTextField();
-        btnSaveImage = new javax.swing.JButton();
-        img1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        mi_browse = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        convertToGrayscale = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        toGaussianBlur = new javax.swing.JMenuItem();
-        toMedianBlur = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        toBilateralFilter = new javax.swing.JMenuItem();
-        toBoxFilter = new javax.swing.JMenuItem();
-        toFilter2d = new javax.swing.JMenuItem();
-        toPyrUp = new javax.swing.JMenuItem();
-        toPyrDown = new javax.swing.JMenuItem();
-        toPyrShift = new javax.swing.JMenuItem();
-        toSpatial = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        toErotion = new javax.swing.JMenuItem();
-        toDilation = new javax.swing.JMenuItem();
-        toOpening = new javax.swing.JMenuItem();
-        toClossing = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        cannyEdgeDetection = new javax.swing.JMenuItem();
-        toSobel = new javax.swing.JMenuItem();
-        toScharr = new javax.swing.JMenuItem();
-
-        jMenu3.setText("jMenu3");
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(new java.awt.Dimension(650, 650));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        img2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(img2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 450, 450));
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setText("Image Enchantment In Spatial Filtering");
+
+        imgResult.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        browseImage.setText("Browse Image");
+        browseImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseImageActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel2.setText("->");
+
+        spatialFilter.setText("Laplacian");
+        spatialFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spatialFilterActionPerformed(evt);
+            }
+        });
 
         txtPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPathActionPerformed(evt);
             }
         });
-        getContentPane().add(txtPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 426, -1));
 
-        btnSaveImage.setText("Simpan Gambar Hasil");
-        btnSaveImage.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Substraction");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveImageActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSaveImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 510, -1, -1));
 
-        img1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 450, 450));
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel3.setText("->");
 
-        jMenu1.setText("File");
-
-        mi_browse.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        mi_browse.setText("Browse Image");
-        mi_browse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mi_browseActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mi_browse);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu7.setText("Color");
-
-        convertToGrayscale.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        convertToGrayscale.setText("Grayscale");
-        convertToGrayscale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                convertToGrayscaleActionPerformed(evt);
-            }
-        });
-        jMenu7.add(convertToGrayscale);
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Binary");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu7);
-
-        jMenu2.setText("Blur");
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK));
-        jMenuItem2.setText("Blur");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem2);
-
-        toGaussianBlur.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        toGaussianBlur.setText("Gaussian Blur");
-        toGaussianBlur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toGaussianBlurActionPerformed(evt);
-            }
-        });
-        jMenu2.add(toGaussianBlur);
-
-        toMedianBlur.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        toMedianBlur.setText("Median Blur");
-        toMedianBlur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toMedianBlurActionPerformed(evt);
-            }
-        });
-        jMenu2.add(toMedianBlur);
-
-        jMenuBar1.add(jMenu2);
-
-        jMenu6.setText("Filter");
-
-        toBilateralFilter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        toBilateralFilter.setText("Bilateral Filter");
-        toBilateralFilter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toBilateralFilterActionPerformed(evt);
-            }
-        });
-        jMenu6.add(toBilateralFilter);
-
-        toBoxFilter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK));
-        toBoxFilter.setText("Box Filter");
-        toBoxFilter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toBoxFilterActionPerformed(evt);
-            }
-        });
-        jMenu6.add(toBoxFilter);
-
-        toFilter2d.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        toFilter2d.setText("Filter2D");
-        toFilter2d.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toFilter2dActionPerformed(evt);
-            }
-        });
-        jMenu6.add(toFilter2d);
-
-        toPyrUp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        toPyrUp.setText("Pyramid Up");
-        toPyrUp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toPyrUpActionPerformed(evt);
-            }
-        });
-        jMenu6.add(toPyrUp);
-
-        toPyrDown.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
-        toPyrDown.setText("Pyramid Down");
-        toPyrDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toPyrDownActionPerformed(evt);
-            }
-        });
-        jMenu6.add(toPyrDown);
-
-        toPyrShift.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK));
-        toPyrShift.setText("Pyramid Shift");
-        toPyrShift.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toPyrShiftActionPerformed(evt);
-            }
-        });
-        jMenu6.add(toPyrShift);
-
-        toSpatial.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        toSpatial.setText("Spatial");
-        toSpatial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toSpatialActionPerformed(evt);
-            }
-        });
-        jMenu6.add(toSpatial);
-
-        jMenuBar1.add(jMenu6);
-
-        jMenu5.setText("Morphological");
-
-        toErotion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
-        toErotion.setText("Erotion");
-        toErotion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toErotionActionPerformed(evt);
-            }
-        });
-        jMenu5.add(toErotion);
-
-        toDilation.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK));
-        toDilation.setText("Dilation");
-        toDilation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toDilationActionPerformed(evt);
-            }
-        });
-        jMenu5.add(toDilation);
-
-        toOpening.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK));
-        toOpening.setText("Openning");
-        toOpening.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toOpeningActionPerformed(evt);
-            }
-        });
-        jMenu5.add(toOpening);
-
-        toClossing.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        toClossing.setText("Clossing");
-        toClossing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toClossingActionPerformed(evt);
-            }
-        });
-        jMenu5.add(toClossing);
-
-        jMenuBar1.add(jMenu5);
-
-        jMenu4.setText("Edge Detection");
-
-        cannyEdgeDetection.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        cannyEdgeDetection.setText("Canny");
-        cannyEdgeDetection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cannyEdgeDetectionActionPerformed(evt);
-            }
-        });
-        jMenu4.add(cannyEdgeDetection);
-
-        toSobel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_MASK));
-        toSobel.setText("Sobel");
-        toSobel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toSobelActionPerformed(evt);
-            }
-        });
-        jMenu4.add(toSobel);
-
-        toScharr.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
-        toScharr.setText("Scharr");
-        toScharr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toScharrActionPerformed(evt);
-            }
-        });
-        jMenu4.add(toScharr);
-
-        jMenuBar1.add(jMenu4);
-
-        setJMenuBar(jMenuBar1);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(browseImage)
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(imgResult, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(spatialFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel2)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton1)))
+                .addContainerGap(114, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(browseImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(spatialFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(imgResult, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-     // Methode to resize imageIcon with the same size of a Jlabel
-    //set size image
     public ImageIcon ResizeImage(String ImagePath)
     {
         ImageIcon MyImage = new ImageIcon(ImagePath);
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance(img2.getWidth(), img2.getHeight(), Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(imgResult.getWidth(), imgResult.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -332,11 +148,12 @@ public class Main extends javax.swing.JFrame {
     //to set image size to icon on label
     public ImageIcon ResizeImageIcon(Image img)
     {
-        Image newImg = img.getScaledInstance(img2.getWidth(), img2.getHeight(), img.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance(imgResult.getWidth(), imgResult.getHeight(), img.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(newImg);
         return icon;
     }
     
+    //Convert Image To BufferdImage
     public Image convertToBufferedImage(Mat input)
     {
         int type = BufferedImage.TYPE_BYTE_GRAY;
@@ -353,540 +170,21 @@ public class Main extends javax.swing.JFrame {
         return img;
     }
     
-    public void Grayscale()
-    {
-        //load openCV core library & get image to convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();
-        
-        //read the image
-        Mat source = Imgcodecs.imread(filepath);
-        
-        //Creating the empty destination matrix 
-        Mat destination = new Mat();
-        
-        // Converting the image to gray scale and   
-        Imgproc.cvtColor(source, destination, Imgproc.COLOR_RGB2GRAY);
-        
-        //set the result of image
-        Image grayScale = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(grayScale));
-    }
-    
-    public void colorToBinary()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();
-        
-        //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //grayscale mat
-        Mat grey = new Mat();
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        //convert to grayscale
-        Imgproc.cvtColor(source, grey, Imgproc.COLOR_BGR2GRAY);
-        
-        //Converting to Binary Image
-        Imgproc.threshold(grey, destination, 128, 255, Imgproc.THRESH_BINARY);
-        
-        //set the result of image
-        Image binary = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(binary));
-    }
-    
-    public void cannyEdgeDetection()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Converting image to gray
-        Imgproc.cvtColor(source, destination, Imgproc.COLOR_RGB2GRAY);
-        Mat edge = new Mat();
-        
-        //Detecting the edges
-        Imgproc.Canny(destination, edge, 60, 60*3);
-        
-        //set the result of image
-        Image toCanny = convertToBufferedImage(edge);
-        img2.setIcon(ResizeImageIcon(toCanny));
-    }
-    
-    public void toBlur()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        //Creating the Size and Point objects
-        Size size = new Size(45, 45);
-        Point point = new Point(20, 30);
-        
-        // Applying Blur effect on the Image
-        Imgproc.blur(source, destination, size, point, Core.BORDER_DEFAULT);
-        
-        //set the result of image
-        Image toBlur = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toBlur));
-    }
-    
-    public void toGaussianBlur()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Applying GaussianBlur on the Image
-        Imgproc.GaussianBlur(source, destination, new Size(45, 45), 0);
-        
-        //set the result of image
-        Image toBlur = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toBlur));
-    }
-    
-    public void toMedianBlur()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Applying MedianBlur on the Image
-        Imgproc.medianBlur(source, destination, 15);
-      
-        //set the result of image
-        Image toBlur = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toBlur));
-    }
-    
-    public void toErosion()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Preparing the kernel matrix object
-        Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new  Size((2*2) + 1, (2*2)+1));
-      
-        // Applying erode on the Image
-        Imgproc.erode(source, destination, kernel);
-
-        //set the result of image
-        Image toErosion = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toErosion));
-    }
-    
-    public void toDilation()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Preparing the kernel matrix object
-        Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new  Size((2*2) + 1, (2*2)+1));
-      
-        // Applying erode on the Image
-        Imgproc.dilate(source, destination, kernel);
-        
-        //set the result of image
-        Image toDilation = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toDilation));
-    }
-    
-    public void toOpening()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Preparing the kernel matrix object
-        Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new  Size((2*2) + 1, (2*2)+1));
-      
-        // Applying opening on the Image
-        Imgproc.erode(source, destination, kernel);
-        Imgproc.dilate(destination, destination, kernel);
-
-        //set the result of image
-        Image toErosion = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toErosion));
-    }
-    
-    public void toclosing()
-    {
-            //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Preparing the kernel matrix object
-        Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new  Size((2*2) + 1, (2*2)+1));
-      
-        // Applying closing on the Image
-        Imgproc.dilate(source, destination, kernel);
-        Imgproc.erode(destination, destination, kernel);
-
-        //set the result of image
-        Image toErosion = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toErosion));
-    }
-    public void toBilateralFilter()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        //Applying Bilateral Filter on the image
-        Imgproc.bilateralFilter(source, destination, 15, 80, 80, Core.BORDER_DEFAULT);
-        
-        //set the result of image
-        Image toBilateral = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toBilateral));
-    }
-    
-    public void toBoxFilter()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-        int kernelSize = 12;
-        
-        //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat(source.rows(),source.cols(),source.type());
-        
-        //Creat kernel matrix
-        Mat kernel = Mat.ones(kernelSize,kernelSize, CvType.CV_32F);	
-        
-         for(int i=0; i<kernel.rows(); i++) {
-            for(int j=0; j<kernel.cols(); j++) {
-            
-               double[] m = kernel.get(i, j);
-               
-               for(int k =0; k<m.length; k++) {
-                  m[k] = m[k]/(kernelSize * kernelSize);
-               }
-               kernel.put(i,j, m);
-            }
-         }	
-        
-        
-        // Applying Box Filter effect on the Image
-        Imgproc.filter2D(source, destination, -1, kernel);
-      
-        //set the result of image
-        Image toBox = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toBox));
-    }
-   
-    
-    public void toSqrBoxFilter()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-      
-        // Applying Box Filter effect on the Image
-        Imgproc.sqrBoxFilter(source, destination, -1, new Size(1, 1));
-      
-        //set the result of image
-        Image tosqr = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(tosqr));
-    }
-    
-    public void toFilter2d()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Creating the objects for Size and Point
-        Size size = new Size(45, 45);
-        Point point = new Point(-1, -1);
-      
-         // Creating kernel matrix
-        Mat kernel = Mat.ones(2,2, CvType.CV_32F);
-      
-        for(int i = 0; i<kernel.rows(); i++) 
-        {
-            for(int j = 0; j<kernel.cols(); j++) 
-            {
-                double[] m = kernel.get(i, j);
-
-            for(int k = 1; k<m.length; k++) 
-            {
-               m[k] = m[k]/(2 * 2);
-            }
-            kernel.put(i,j, m);
-            }
-        }
-        
-        Imgproc.filter2D(source, destination, -1, kernel);
-      
-        //set the result of image
-        Image tosqr = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(tosqr));
-    }
-    
-    public void toMorphologyOps()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-      
-        // Creating kernel matrix
-        Mat kernel = Mat.ones(5,5, CvType.CV_32F);
-      
-        // Applying Blur effect on the Image 
-        Imgproc.morphologyEx(source, destination, Imgproc.MORPH_TOPHAT, kernel);
-      
-        //set the result of image
-        Image toMorOps = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toMorOps));
-    }
-    
-    public void toPyramidUp()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Applying pyrUp on the Image
-        Imgproc.pyrUp(source, destination, new Size(source.cols()*2,  source.rows()*2), Core.BORDER_DEFAULT);
-      
-        //set the result of image
-        Image toPU = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toPU));
-    }
-    
-    public void toPyramidDown()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        /// Applying pyrDown on the Image
-        Imgproc.pyrDown(source, destination, new Size(source.cols()/2,  source.rows()/2), Core.BORDER_DEFAULT);
-      
-        //set the result of image
-        Image toPD = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toPD));
-    }
-    
-    public void toPyramidShift()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Applying meanShifting on the Image
-         Imgproc.pyrMeanShiftFiltering(source, destination, 200, 300);
-      
-        //set the result of image
-        Image toPS = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toPS));
-    }
-    
-    public void toSobel()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        // Applying sobel on the Image
-        Imgproc.Sobel(source, destination, -1, 1, 1);
-        
-        //set the result of image
-        Image toSobel = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toSobel));
-    }
-    
-    public void toScharr()
-    {
-        //Loading the OpenCV core library & get image for convert
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        String filepath = txtPath.getText();    
-
-         //Instantiating the Imgcodecs class
-        Imgcodecs imgcode = new Imgcodecs();
-        
-        //Reading Image
-        Mat source = imgcode.imread(filepath);
-        
-        //Creating the destination matrix
-        Mat destination = new Mat();
-        
-        //Mat gray
-        Mat gray = new Mat();
-        
-        //convert to gray
-        Imgproc.cvtColor(source, gray, Imgproc.COLOR_RGB2GRAY);
-        
-        // Applying scharr on the Image
-        //derivative y = 1
-        Imgproc.Scharr(gray, destination, Imgproc.CV_SCHARR, 0, 1);
-        
-        //derivative x = 1
-        //Imgproc.Scharr(gray, destination, Imgproc.CV_SCHARR, 1, 0);
-        
-        //set the result of image
-        Image toScharr = convertToBufferedImage(destination);
-        img2.setIcon(ResizeImageIcon(toScharr));
-    }
+    //Browse Image to display on program
+    private void browseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseImageActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        //set directory default for browse image
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator")+ "Pictures" ) );
+        //filter file image
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png","gif");
+        chooser.addChoosableFileFilter(filter);
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        txtPath.setText(filename);
+        imgResult.setIcon(ResizeImage(filename));
+    }//GEN-LAST:event_browseImageActionPerformed
     
     public void toSpatial()
     {
@@ -928,136 +226,23 @@ public class Main extends javax.swing.JFrame {
         
         //set the result of image
         Image toSpatial = convertToBufferedImage(abs_dst);
-        img2.setIcon(ResizeImageIcon(toSpatial));
+        imgResult.setIcon(ResizeImageIcon(toSpatial));
     }
     
-    private void mi_browseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_browseActionPerformed
-        // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        //set directory default for browse image
-        chooser.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator")+ "Pictures" ) );
-        //filter file image
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png","gif");
-        chooser.addChoosableFileFilter(filter);
-        chooser.showOpenDialog(null);
-        File f = chooser.getSelectedFile();
-        String filename = f.getAbsolutePath();
-        txtPath.setText(filename);
-        img1.setIcon(ResizeImage(filename));
-        
-    }//GEN-LAST:event_mi_browseActionPerformed
-    
-    private void convertToGrayscaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convertToGrayscaleActionPerformed
-        // TODO add your handling code here:
-        Grayscale();
-    }//GEN-LAST:event_convertToGrayscaleActionPerformed
-
-    private void btnSaveImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveImageActionPerformed
-        // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        //set directory default for browse image
-        chooser.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator")+ "Pictures" ) );
-        //filter file image
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png","gif");
-        chooser.addChoosableFileFilter(filter);
-        chooser.showOpenDialog(null);
-        File f = chooser.getSelectedFile();
-        String filename = f.getAbsolutePath();
-    }//GEN-LAST:event_btnSaveImageActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        colorToBinary();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        toBlur();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void cannyEdgeDetectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cannyEdgeDetectionActionPerformed
-        // TODO add your handling code here:
-        cannyEdgeDetection();
-    }//GEN-LAST:event_cannyEdgeDetectionActionPerformed
-
-    private void toGaussianBlurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toGaussianBlurActionPerformed
-        // TODO add your handling code here:
-        toGaussianBlur();
-    }//GEN-LAST:event_toGaussianBlurActionPerformed
-
-    private void toMedianBlurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toMedianBlurActionPerformed
-        // TODO add your handling code here:
-        toMedianBlur();
-    }//GEN-LAST:event_toMedianBlurActionPerformed
-
-    private void toErotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toErotionActionPerformed
-        // TODO add your handling code here:
-        toErosion();
-    }//GEN-LAST:event_toErotionActionPerformed
-
-    private void toDilationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toDilationActionPerformed
-        // TODO add your handling code here:
-        toDilation();
-    }//GEN-LAST:event_toDilationActionPerformed
-
-    private void toBilateralFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toBilateralFilterActionPerformed
-        // TODO add your handling code here:
-        toBilateralFilter();
-    }//GEN-LAST:event_toBilateralFilterActionPerformed
-
-    private void toBoxFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toBoxFilterActionPerformed
-        // TODO add your handling code here:
-        toBoxFilter();
-    }//GEN-LAST:event_toBoxFilterActionPerformed
-
-    private void toFilter2dActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toFilter2dActionPerformed
-        // TODO add your handling code here:
-        toFilter2d();
-    }//GEN-LAST:event_toFilter2dActionPerformed
-
-    private void toSobelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toSobelActionPerformed
-        // TODO add your handling code here:
-        toSobel();
-    }//GEN-LAST:event_toSobelActionPerformed
-
-    private void toScharrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toScharrActionPerformed
-        // TODO add your handling code here:
-        toScharr();
-    }//GEN-LAST:event_toScharrActionPerformed
-
-    private void toPyrUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toPyrUpActionPerformed
-        // TODO add your handling code here:
-        toPyramidUp();
-    }//GEN-LAST:event_toPyrUpActionPerformed
-
-    private void toPyrDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toPyrDownActionPerformed
-        // TODO add your handling code here:
-        toPyramidDown();
-    }//GEN-LAST:event_toPyrDownActionPerformed
-
-    private void toPyrShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toPyrShiftActionPerformed
-        // TODO add your handling code here:
-        toPyramidShift();
-    }//GEN-LAST:event_toPyrShiftActionPerformed
-
-    private void toOpeningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toOpeningActionPerformed
-        // TODO add your handling code here:
-        toOpening();
-    }//GEN-LAST:event_toOpeningActionPerformed
-
-    private void toClossingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toClossingActionPerformed
-        // TODO add your handling code here:
-        toclosing();
-    }//GEN-LAST:event_toClossingActionPerformed
-
     private void txtPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPathActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPathActionPerformed
 
-    private void toSpatialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toSpatialActionPerformed
+    private void spatialFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spatialFilterActionPerformed
         // TODO add your handling code here:
         toSpatial();
-    }//GEN-LAST:event_toSpatialActionPerformed
+    }//GEN-LAST:event_spatialFilterActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Subtraction sub = new Subtraction();
+        sub.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1085,7 +270,6 @@ public class Main extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1096,37 +280,13 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSaveImage;
-    private javax.swing.JMenuItem cannyEdgeDetection;
-    private javax.swing.JMenuItem convertToGrayscale;
-    private javax.swing.JLabel img1;
-    private javax.swing.JLabel img2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem mi_browse;
-    private javax.swing.JMenuItem toBilateralFilter;
-    private javax.swing.JMenuItem toBoxFilter;
-    private javax.swing.JMenuItem toClossing;
-    private javax.swing.JMenuItem toDilation;
-    private javax.swing.JMenuItem toErotion;
-    private javax.swing.JMenuItem toFilter2d;
-    private javax.swing.JMenuItem toGaussianBlur;
-    private javax.swing.JMenuItem toMedianBlur;
-    private javax.swing.JMenuItem toOpening;
-    private javax.swing.JMenuItem toPyrDown;
-    private javax.swing.JMenuItem toPyrShift;
-    private javax.swing.JMenuItem toPyrUp;
-    private javax.swing.JMenuItem toScharr;
-    private javax.swing.JMenuItem toSobel;
-    private javax.swing.JMenuItem toSpatial;
+    private javax.swing.JButton browseImage;
+    private javax.swing.JLabel imgResult;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton spatialFilter;
     private javax.swing.JTextField txtPath;
     // End of variables declaration//GEN-END:variables
 }
