@@ -9,15 +9,19 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.File;
+import javafx.scene.effect.GaussianBlur;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.opencv.core.Core;
+import static org.opencv.core.Core.BORDER_DEFAULT;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.highgui.HighGui;
 
 /**
  *
@@ -28,10 +32,13 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    
+    Mat awal;
+    Mat result;
     public Main() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,20 +49,21 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        imgResult = new javax.swing.JLabel();
         browseImage = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         spatialFilter = new javax.swing.JButton();
-        txtPath = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnSobel = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        btnSub = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtPath = new javax.swing.JTextField();
+        imgResult = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setText("Image Enchantment In Spatial Filtering");
-
-        imgResult.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         browseImage.setText("Browse Image");
         browseImage.addActionListener(new java.awt.event.ActionListener() {
@@ -74,21 +82,34 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        txtPath.addActionListener(new java.awt.event.ActionListener() {
+        btnSobel.setText("Sobel");
+        btnSobel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPathActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Substraction");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSobelActionPerformed(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setText("->");
+
+        btnSub.setText("Substraction");
+        btnSub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel4.setText("->");
+
+        imgResult.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButton1.setText("Averaging");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,23 +118,36 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(browseImage)
-                        .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(imgResult, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(129, 129, 129)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(spatialFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel2)
-                        .addGap(30, 30, 30)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel4)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnSub))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(btnSobel)
+                .addGap(78, 78, 78))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(browseImage)
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(imgResult, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
                         .addComponent(jButton1)))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,14 +157,19 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(browseImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(btnSobel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(spatialFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(imgResult, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSub, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(imgResult, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -186,7 +225,8 @@ public class Main extends javax.swing.JFrame {
         imgResult.setIcon(ResizeImage(filename));
     }//GEN-LAST:event_browseImageActionPerformed
     
-    public void toSpatial()
+    //Spatial Filtering
+    public Mat toLaplacian()
     {
         //Loading the OpenCV core library & get image for convert
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -219,29 +259,148 @@ public class Main extends javax.swing.JFrame {
         Imgproc.cvtColor(source, gray, Imgproc.COLOR_RGB2GRAY);
         
         //convert to laplacian
-        Imgproc.Laplacian( gray, destination, ddepth, kernel_size, scale, delta, Core.BORDER_DEFAULT );
+        Imgproc.Laplacian(gray, destination, ddepth, kernel_size, scale, delta, Core.BORDER_DEFAULT );
         
         // converting back to CV_8U
-        Core.convertScaleAbs( destination, abs_dst );
+        Core.convertScaleAbs( destination, abs_dst);
         
         //set the result of image
         Image toSpatial = convertToBufferedImage(abs_dst);
         imgResult.setIcon(ResizeImageIcon(toSpatial));
+        imgcode.imwrite( "C:/Users/HenHen/Documents/NetBeansProjects/Image-Enchantment-In-Spatial-Filtering/temp/spatial/spatial.jpg",abs_dst);
+        return result = abs_dst;
     }
     
-    private void txtPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPathActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPathActionPerformed
+    //Sobel Detection Edge
+    public Mat toSobel()
+    {
+        //Loading the OpenCV core library & get image for convert
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        
+        Mat src_gray = new Mat();
+        Mat grad = new Mat();
+        
+        int scale = 1;
+        int delta = 0;
+        int ddepth = CvType.CV_16S;
 
+  
+        //Instantiating the Imgcodecs class
+        Imgcodecs imgcode = new Imgcodecs();
+        
+        //Reading Image
+        Mat source = Imgcodecs.imread("C:/Users/henhen/Documents/NetBeansProjects/Image-Enchantment-In-Spatial-Filtering/temp/sub/sub.jpg");
+        
+        // Remove noise by blurring with a Gaussian filter ( kernel size = 3 )
+        Imgproc.GaussianBlur( source, source, new Size(3, 3), 0, 0, Core.BORDER_DEFAULT );
+        Imgproc.GaussianBlur( source, source, new Size(3, 3), 0, 0, Core.BORDER_DEFAULT );
+        Imgproc.GaussianBlur( source, source, new Size(3, 3), 0, 0, Core.BORDER_DEFAULT );
+        
+        // Convert the image to grayscale
+        Imgproc.cvtColor( source, src_gray, Imgproc.COLOR_RGB2GRAY );
+        
+        Mat grad_x = new Mat(), grad_y = new Mat();
+        Mat abs_grad_x = new Mat(), abs_grad_y = new Mat();
+        
+        
+        
+        Imgproc.Sobel( src_gray, grad_x, ddepth, 1, 0, 3, scale, delta, Core.BORDER_DEFAULT );
+        Imgproc.Sobel( src_gray, grad_y, ddepth, 0, 1, 3, scale, delta, Core.BORDER_DEFAULT );
+        
+        // converting back to CV_8U
+        Core.convertScaleAbs( grad_x, abs_grad_x );
+        Core.convertScaleAbs( grad_y, abs_grad_y );
+        
+        Core.addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad );
+
+        //set the result of image
+        Image toSobel = convertToBufferedImage(grad);
+        imgResult.setIcon(ResizeImageIcon(toSobel));
+        imgcode.imwrite("C:/Users/HenHen/Documents/NetBeansProjects/Image-Enchantment-In-Spatial-Filtering/temp/sobel/sobel.jpg", grad);
+        return result = grad;
+    }
+    
+    public Mat toSubstract()
+    {
+        //Loading the OpenCV core library & get image for convert
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        String filepath = txtPath.getText();    
+        
+         //Instantiating the Imgcodecs and Core class
+        Imgcodecs imgcode = new Imgcodecs();
+        Core core = new Core();
+        
+        //Reading Image
+        Mat source1 = imgcode.imread(filepath);
+        Mat source2 = imgcode.imread("C:/Users/HenHen/Documents/NetBeansProjects/Image-Enchantment-In-Spatial-Filtering/temp/spatial/spatial.jpg");
+        
+        //Creating matrix
+        Mat destination = new Mat();
+        
+        //declare dtype
+        int dtype = -1;
+        
+        // Subtracting Image
+        Core.subtract(source1, source2, destination);
+        
+        //set the result of image
+        Image toSubtract = convertToBufferedImage(destination);
+        imgResult.setIcon(ResizeImageIcon(toSubtract));
+        imgcode.imwrite("C:/Users/HenHen/Documents/NetBeansProjects/Image-Enchantment-In-Spatial-Filtering/temp/sub/sub.jpg", destination);
+        
+        return result = destination;
+    }
+    
+    public Mat toAveraging()
+    {
+        //Loading the OpenCV core library & get image for convert
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        
+        //Instantiating the Imgcodecs and Core class
+        Imgcodecs imgcode = new Imgcodecs();
+        Core core = new Core();
+        
+        //Reading Image
+        Mat source = Imgcodecs.imread("C:/Users/henhen/Documents/NetBeansProjects/Image-Enchantment-In-Spatial-Filtering/temp/sobel/sobel.jpg");
+        
+        //Creating the destination matrix
+        Mat destination = new Mat();
+        
+        //declaration kernel
+        Size kernelSize = new Size(3,3);
+        
+        //decalaration anchor
+        Point anchor = new Point(-1,-1);
+        
+        // Applying Blur effect on the Image
+        Imgproc.blur(source, destination, kernelSize, anchor, Core.BORDER_DEFAULT);
+        
+        //set the result of image
+        Image toAveraging = convertToBufferedImage(destination);
+        imgResult.setIcon(ResizeImageIcon(toAveraging));
+        imgcode.imwrite("C:/Users/HenHen/Documents/NetBeansProjects/Image-Enchantment-In-Spatial-Filtering/temp/averaging/avg.jpg", destination);
+        
+        return result = destination;
+    }
+    
     private void spatialFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spatialFilterActionPerformed
         // TODO add your handling code here:
-        toSpatial();
+        toLaplacian();
     }//GEN-LAST:event_spatialFilterActionPerformed
+
+    private void btnSobelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobelActionPerformed
+        // TODO add your handling code here:
+        toSobel();
+    }//GEN-LAST:event_btnSobelActionPerformed
+
+    private void btnSubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubActionPerformed
+        // TODO add your handling code here:
+        toSubstract();
+    }//GEN-LAST:event_btnSubActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Subtraction sub = new Subtraction();
-        sub.setVisible(true);
+        toAveraging();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -281,12 +440,15 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseImage;
-    private javax.swing.JLabel imgResult;
+    private javax.swing.JButton btnSobel;
+    private javax.swing.JButton btnSub;
+    public static transient javax.swing.JLabel imgResult;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton spatialFilter;
-    private javax.swing.JTextField txtPath;
+    public static javax.swing.JTextField txtPath;
     // End of variables declaration//GEN-END:variables
 }
